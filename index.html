@@ -19,6 +19,8 @@
             --serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
             --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             --max-w: 1080px;
+            --grid-size: 8px;
+            --grid-color: rgba(200, 220, 245, 0.15);
         }
 
         html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
@@ -30,15 +32,19 @@
             line-height: 1.7;
             color: var(--text);
             background: var(--bg);
+            background-image:
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: var(--grid-size) var(--grid-size);
             overflow-x: hidden;
         }
 
         body.locked { overflow: hidden; }
 
         /* ── Layout ── */
-        .wrap { max-width: var(--max-w); margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem; }
-        @media (min-width: 768px)  { .wrap { padding-left: 3rem; padding-right: 3rem; } }
-        @media (min-width: 1024px) { .wrap { padding-left: 4rem; padding-right: 4rem; } }
+        .wrap { max-width: var(--max-w); margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+        @media (min-width: 768px)  { .wrap { padding-left: 48px; padding-right: 48px; } }
+        @media (min-width: 1024px) { .wrap { padding-left: 64px; padding-right: 64px; } }
 
         /* ── Fade-in on scroll (progressive enhancement — text visible by default) ── */
         .reveal { transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
@@ -56,14 +62,9 @@
 
         /* ═══════════════════ HEADER ═══════════════════ */
         header {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            padding: 1.25rem 0;
-            background: rgba(255,255,255,.92);
-            backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-            border-bottom: 1px solid transparent;
-            transition: border-color .3s;
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border);
         }
-        header.scrolled { border-bottom-color: var(--border); }
 
         header .wrap { display: flex; justify-content: space-between; align-items: center; }
 
@@ -75,7 +76,7 @@
         .cta-btn {
             font-family: var(--sans); font-size: .8125rem; font-weight: 500;
             color: var(--text); text-decoration: none;
-            padding: .55rem 1.2rem;
+            padding: 8px 24px;
             border: 1px solid var(--border); border-radius: 100px;
             transition: background .3s, color .3s, border-color .3s;
         }
@@ -85,10 +86,10 @@
         .hero {
             min-height: 88vh;
             display: flex; flex-direction: column; justify-content: flex-end;
-            padding-bottom: 6rem;
+            padding-bottom: 96px;
         }
 
-        .hero .label { margin-bottom: 1.5rem; }
+        .hero .label { margin-bottom: 24px; }
 
         .hero h1 {
             font-family: var(--serif); font-weight: 400;
@@ -99,10 +100,10 @@
         .hero h1 em { font-style: italic; }
 
         /* ═══════════════════ INTRO ═══════════════════ */
-        .intro { padding: 6rem 0; border-top: 1px solid var(--border); }
+        .intro { padding: 96px 0; border-top: 1px solid var(--border); }
 
-        .intro-grid { display: grid; gap: 2rem; }
-        @media (min-width: 768px) { .intro-grid { grid-template-columns: 180px 1fr; gap: 3rem; } }
+        .intro-grid { display: grid; gap: 32px; }
+        @media (min-width: 768px) { .intro-grid { grid-template-columns: 184px 1fr; gap: 48px; } }
 
         .intro-text {
             font-family: var(--serif);
@@ -112,12 +113,12 @@
         }
 
         /* ═══════════════════ WORK ═══════════════════ */
-        .work { padding: 6rem 0; border-top: 1px solid var(--border); }
-        .work-head { margin-bottom: 3rem; }
+        .work { padding: 96px 0; border-top: 1px solid var(--border); }
+        .work-head { margin-bottom: 48px; }
 
         .work-item {
             display: block;
-            padding: 2rem 0;
+            padding: 32px 0;
             border-top: 1px solid var(--border);
             cursor: pointer; text-decoration: none; color: inherit;
             transition: opacity .25s;
@@ -127,10 +128,10 @@
 
         .work-item .work-meta {
             font-size: .8rem; color: var(--text-2);
-            margin-bottom: .35rem;
+            margin-bottom: 8px;
         }
 
-        .work-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+        .work-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
 
         .work-title {
             font-family: var(--serif); font-weight: 400;
@@ -145,48 +146,67 @@
         .work-item:hover .work-arrow { transform: translateX(4px); }
 
         .work-desc {
-            margin-top: .5rem;
+            margin-top: 8px;
             font-size: .9375rem; color: var(--text-2);
             max-width: 560px;
         }
 
+        .work-thumbnail {
+            width: 100%; max-width: 160px;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            margin-top: 16px;
+            opacity: 0.85;
+            transition: opacity .3s;
+        }
+        .work-item:hover .work-thumbnail { opacity: 1; }
+
         /* ═══════════════════ BELIEFS ═══════════════════ */
-        .beliefs { padding: 7rem 0; background: var(--bg-alt); }
+        .beliefs {
+            padding: 112px 0;
+            background: var(--bg-alt);
+            background-image:
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: var(--grid-size) var(--grid-size);
+        }
 
         .beliefs h2 {
             font-family: var(--serif); font-weight: 400;
             font-size: clamp(1.9rem, 3.8vw, 3.2rem);
             line-height: 1.15; letter-spacing: -.02em;
-            max-width: 720px; margin-bottom: 4rem;
+            max-width: 720px; margin-bottom: 64px;
         }
 
-        .beliefs-grid { display: grid; gap: 3rem; }
-        @media (min-width: 768px) { .beliefs-grid { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; } }
+        .beliefs-grid { display: grid; gap: 48px; }
+        @media (min-width: 768px) { .beliefs-grid { grid-template-columns: repeat(3, 1fr); gap: 40px; } }
 
         .belief h3 {
             font-family: var(--sans); font-weight: 500; font-size: .95rem;
-            margin-bottom: .6rem;
+            margin-bottom: 8px;
         }
         .belief p { font-size: .9375rem; color: var(--text-2); line-height: 1.7; }
 
         /* ═══════════════════ ABOUT ═══════════════════ */
-        .about { padding: 6rem 0; border-top: 1px solid var(--border); }
+        .about { padding: 96px 0; border-top: 1px solid var(--border); }
 
-        .about-grid { display: grid; gap: 2rem; }
-        @media (min-width: 768px) { .about-grid { grid-template-columns: 180px 1fr; gap: 3rem; } }
+        .about-grid { display: grid; gap: 32px; }
+        @media (min-width: 768px) { .about-grid { grid-template-columns: 184px 1fr; gap: 48px; } }
 
-        .about-body { max-width: 620px; }
-        .about-body p { color: var(--text-2); margin-bottom: 1.25rem; line-height: 1.8; }
+        .about-body { max-width: 624px; }
+        .about-body p { color: var(--text-2); margin-bottom: 24px; line-height: 1.8; }
         .about-body p:last-child { margin-bottom: 0; }
 
         /* ═══════════════════ FOOTER ═══════════════════ */
-        .foot { padding: 6rem 0 3rem; border-top: 1px solid var(--border); }
+        .foot { padding: 96px 0 48px; border-top: 1px solid var(--border); }
 
         .foot h2 {
             font-family: var(--serif); font-weight: 400;
             font-size: clamp(2rem, 4vw, 3.25rem);
             line-height: 1.15; letter-spacing: -.02em;
-            margin-bottom: 1.5rem;
+            margin-bottom: 24px;
         }
 
         .foot-email {
@@ -199,7 +219,7 @@
         .foot-email:hover { opacity: .5; }
 
         .foot-bottom {
-            margin-top: 6rem; padding-top: 1.5rem;
+            margin-top: 96px; padding-top: 24px;
             border-top: 1px solid var(--border);
             font-size: .8rem; color: var(--text-2);
             display: flex; justify-content: space-between; align-items: center;
@@ -231,15 +251,15 @@
         .overlay-inner {
             max-width: 680px;
             margin: 0 auto;
-            padding: 2rem 1.5rem 5rem;
+            padding: 32px 24px 80px;
         }
-        @media (min-width: 768px)  { .overlay-inner { padding: 3rem 3rem 6rem; } }
-        @media (min-width: 1024px) { .overlay-inner { padding: 4rem 2rem 8rem; } }
+        @media (min-width: 768px)  { .overlay-inner { padding: 48px 48px 96px; } }
+        @media (min-width: 1024px) { .overlay-inner { padding: 64px 32px 128px; } }
 
         .overlay-close {
             position: sticky; top: 0; z-index: 2;
             display: flex; justify-content: flex-end;
-            padding: .5rem 0 2rem;
+            padding: 8px 0 32px;
             background: linear-gradient(var(--bg) 60%, transparent);
         }
 
@@ -253,38 +273,58 @@
         }
         .overlay-close button:hover { background: var(--text); color: var(--bg); border-color: var(--text); }
 
-        .ov-meta { margin-bottom: .75rem; }
+        .ov-meta { margin-bottom: 16px; }
         .ov-title {
             font-family: var(--serif); font-weight: 400;
             font-size: clamp(2rem, 4vw, 2.75rem);
             line-height: 1.15; letter-spacing: -.02em;
-            margin-bottom: 3rem;
+            margin-bottom: 48px;
         }
 
-        .ov-section { margin-bottom: 3rem; }
+        .ov-section { margin-bottom: 48px; }
         .ov-section h3 {
             font-size: .8rem; font-weight: 500;
             text-transform: uppercase; letter-spacing: .09em;
-            color: var(--text-2); margin-bottom: .75rem;
+            color: var(--text-2); margin-bottom: 16px;
         }
         .ov-section p { font-size: 1.0625rem; line-height: 1.75; }
 
         .ov-impacts { list-style: none; }
         .ov-impacts li {
-            padding: 1.15rem 0;
+            padding: 24px 0;
             border-bottom: 1px solid var(--border);
         }
         .ov-impacts li:first-child { border-top: 1px solid var(--border); }
 
         .ov-impacts .num {
             display: block; font-family: var(--serif);
-            font-size: 1.65rem; line-height: 1.2; margin-bottom: .15rem;
+            font-size: 1.65rem; line-height: 1.2; margin-bottom: 8px;
         }
         .ov-impacts .lbl { font-size: .9375rem; color: var(--text-2); }
 
         .ov-divider {
             border: none; border-top: 1px solid var(--border);
-            margin: 3rem 0;
+            margin: 48px 0;
+        }
+
+        .ov-hero-img {
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            margin-bottom: 48px;
+        }
+
+        .ov-images {
+            display: grid;
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+        @media (min-width: 768px) { .ov-images { grid-template-columns: repeat(2, 1fr); } }
+
+        .ov-images img {
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid var(--border);
         }
 
         /* ── Focus ── */
@@ -438,6 +478,9 @@ const cases = [
     {
         meta: 'Applied AI · Monks — 2025–Present',
         title: 'Designing an agentic AI platform for enterprise marketing',
+        thumbnail: 'images/monks-flow/thumbnail.png',
+        hero: 'images/monks-flow/hero.png',
+        images: [], // Add additional image paths here as needed
         overview: 'Monks developed Monks.Flow — an agentic AI platform designed to automate marketing workflows for enterprise clients. I was handselected to lead UX strategy and design for this initiative.',
         challenge: 'Enterprise marketing teams were drowning in repetitive tasks across content creation, campaign management, and reporting. The opportunity was to design a platform where AI agents could handle these workflows autonomously — while keeping humans in control of the decisions that matter.',
         role: 'UX Director for Interactive and Applied AI. Leading end-to-end UX strategy and design for the platform, shaping how enterprise users interact with and orchestrate AI agents.',
@@ -450,6 +493,9 @@ const cases = [
     {
         meta: 'AI Product Design · Google — 2021–2024',
         title: 'Leading UX for AI products across Google\u2019s ecosystem',
+        thumbnail: 'images/google/thumbnail.png',
+        hero: 'images/google/hero.png',
+        images: [],
         overview: 'For over three years, I led a global team of 10 UX designers creating experiences for Google\u2019s AI-powered products \u2014 from TensorFlow and Google Cloud AI services to emerging ML features across Ads and YouTube.',
         challenge: 'Google\u2019s AI product portfolio was expanding rapidly across multiple product lines, but design operations hadn\u2019t kept pace. With designers spanning 4 time zones and products touching millions of users, we needed consistent design quality and streamlined processes without slowing innovation.',
         role: 'UX Director. Managed 10 designers across 4 time zones. Established design operations, oversaw client relationships, applied and ensured Google standards, and educated staff on UX best practices.',
@@ -462,6 +508,9 @@ const cases = [
     {
         meta: 'AI & Autonomous Vehicles · Zoox — 2025',
         title: 'Taking Zoox from R&D lab to rider-ready service',
+        thumbnail: 'images/zoox/thumbnail.png',
+        hero: 'images/zoox/hero.png',
+        images: [],
         overview: 'Led strategy, content, and interaction design for the Zoox.com redesign as the company prepared to shift from a research-focused identity to a customer-facing autonomous vehicle service.',
         challenge: 'Zoox was transitioning from an R&D company to a public-facing service — but its digital presence still spoke the language of engineers, not riders. The redesign needed to make AI-powered transportation feel approachable and trustworthy to everyday people.',
         role: 'UX Director. Led strategy and interaction design, shaping how Zoox communicates its autonomous technology to a consumer audience for the first time.',
@@ -474,6 +523,9 @@ const cases = [
     {
         meta: 'B2B Marketplace · Adidas — 2017–2019',
         title: 'Building a new marketplace for the adidas retail ecosystem',
+        thumbnail: 'images/adidas/thumbnail.png',
+        hero: 'images/adidas/hero.png',
+        images: [],
         overview: 'Embedded with adidas in Portland for two years to design Locker Room — a new B2B marketplace where sports retailers and teams could buy and sell adidas outfits.',
         challenge: 'Adidas needed a completely new marketplace platform for their B2B retail ecosystem. Sports retailers and team buyers had vastly different needs, tech sophistication levels, and purchasing workflows — yet they needed to coexist in a single, intuitive platform.',
         role: 'UX Lead. Led a team of 4 designers. Facilitated ideation and prioritisation sessions, conducted stakeholder interviews, mapped user journeys, and ran usability testing.',
@@ -494,9 +546,17 @@ const bg       = document.getElementById('overlayBg');
 
 function openCase(i) {
     const c = cases[i];
+
+    const heroImg = c.hero ? `<img src="${c.hero}" alt="${c.title}" class="ov-hero-img">` : '';
+    const additionalImages = c.images && c.images.length > 0
+        ? `<div class="ov-images">${c.images.map(img => `<img src="${img}" alt="Project screenshot">`).join('')}</div>`
+        : '';
+
     content.innerHTML = `
         <p class="label ov-meta">${c.meta}</p>
         <h2 class="ov-title">${c.title}</h2>
+
+        ${heroImg}
 
         <div class="ov-section">
             <h3>Overview</h3>
@@ -512,6 +572,8 @@ function openCase(i) {
             <h3>My role</h3>
             <p>${c.role}</p>
         </div>
+
+        ${additionalImages}
 
         <hr class="ov-divider">
 
@@ -544,12 +606,6 @@ closeBt.addEventListener('click', closeOverlay);
 bg.addEventListener('click', closeOverlay);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOverlay(); });
 
-/* ── Header border on scroll ── */
-const hdr = document.getElementById('header');
-window.addEventListener('scroll', () => {
-    hdr.classList.toggle('scrolled', window.scrollY > 20);
-}, { passive: true });
-
 /* ── Reveal on scroll (Intersection Observer) ── */
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -561,6 +617,20 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ── Add thumbnails to work items ── */
+document.querySelectorAll('.work-item').forEach((item, index) => {
+    if (cases[index] && cases[index].thumbnail) {
+        const desc = item.querySelector('.work-desc');
+        if (desc) {
+            const img = document.createElement('img');
+            img.src = cases[index].thumbnail;
+            img.alt = cases[index].title;
+            img.className = 'work-thumbnail';
+            desc.after(img);
+        }
+    }
+});
 </script>
 
 </body>
