@@ -151,17 +151,52 @@
             max-width: 560px;
         }
 
+        .work-thumbnails {
+            display: flex;
+            gap: 0;
+            margin-top: 24px;
+            height: auto;
+            position: relative;
+        }
+
         .work-thumbnail {
-            width: 100%; max-width: 160px;
+            width: 180px;
+            height: auto;
             aspect-ratio: 4 / 3;
             object-fit: cover;
-            border-radius: 4px;
-            border: 1px solid var(--border);
-            margin-top: 16px;
-            opacity: 0.85;
-            transition: opacity .3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.06);
+            position: relative;
+            transition: transform .3s, box-shadow .3s, z-index .3s;
         }
-        .work-item:hover .work-thumbnail { opacity: 1; }
+
+        .work-thumbnail:nth-child(1) {
+            transform: rotate(-3deg) scale(0.95);
+            z-index: 1;
+        }
+        .work-thumbnail:nth-child(2) {
+            transform: rotate(2deg) translateX(-20px);
+            width: 190px;
+            z-index: 2;
+        }
+        .work-thumbnail:nth-child(3) {
+            transform: rotate(-1deg) translateX(-40px);
+            width: 185px;
+            z-index: 3;
+        }
+        .work-thumbnail:nth-child(4) {
+            transform: rotate(4deg) translateX(-60px) scale(0.92);
+            z-index: 1;
+        }
+
+        .work-item:hover .work-thumbnail {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
+        }
+
+        .work-item:hover .work-thumbnail:nth-child(1) { transform: rotate(-4deg) scale(0.96) translateY(-4px); z-index: 4; }
+        .work-item:hover .work-thumbnail:nth-child(2) { transform: rotate(1deg) translateX(-12px) translateY(-8px); z-index: 5; }
+        .work-item:hover .work-thumbnail:nth-child(3) { transform: rotate(-2deg) translateX(-24px) translateY(-6px); z-index: 6; }
+        .work-item:hover .work-thumbnail:nth-child(4) { transform: rotate(3deg) translateX(-36px) scale(0.93) translateY(-5px); z-index: 4; }
 
         /* ═══════════════════ BELIEFS ═══════════════════ */
         .beliefs {
@@ -307,11 +342,64 @@
             margin: 48px 0;
         }
 
-        .ov-hero-img {
+        .ov-carousel {
+            position: relative;
             width: 100%;
+            margin-bottom: 48px;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .ov-carousel {
+                width: 120%;
+                margin-left: -10%;
+            }
+        }
+
+        .ov-carousel-track {
+            display: flex;
+            transition: transform .4s cubic-bezier(.16,1,.3,1);
+        }
+
+        .ov-carousel-slide {
+            flex: 0 0 100%;
+            width: 100%;
+        }
+
+        .ov-carousel-slide img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
             border-radius: 4px;
             border: 1px solid var(--border);
-            margin-bottom: 48px;
+        }
+
+        .ov-carousel-nav {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .ov-carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            transition: background .3s, transform .3s;
+        }
+
+        .ov-carousel-dot.active {
+            background: var(--text);
+            transform: scale(1.2);
+        }
+
+        .ov-carousel-dot:hover {
+            background: var(--text-2);
         }
 
         .ov-images {
@@ -478,8 +566,18 @@ const cases = [
     {
         meta: 'Applied AI · Monks — 2025–Present',
         title: 'Designing an agentic AI platform for enterprise marketing',
-        thumbnail: 'images/monks-flow/thumbnail.png',
-        hero: 'images/monks-flow/hero.png',
+        thumbnails: [
+            'images/monks-flow/thumb-1.png',
+            'images/monks-flow/thumb-2.png',
+            'images/monks-flow/thumb-3.png',
+            'images/monks-flow/thumb-4.png'
+        ],
+        carousel: [
+            'images/monks-flow/carousel-1.png',
+            'images/monks-flow/carousel-2.png',
+            'images/monks-flow/carousel-3.png',
+            'images/monks-flow/carousel-4.png'
+        ],
         images: [], // Add additional image paths here as needed
         overview: 'Monks developed Monks.Flow — an agentic AI platform designed to automate marketing workflows for enterprise clients. I was handselected to lead UX strategy and design for this initiative.',
         challenge: 'Enterprise marketing teams were drowning in repetitive tasks across content creation, campaign management, and reporting. The opportunity was to design a platform where AI agents could handle these workflows autonomously — while keeping humans in control of the decisions that matter.',
@@ -493,8 +591,18 @@ const cases = [
     {
         meta: 'AI Product Design · Google — 2021–2024',
         title: 'Leading UX for AI products across Google\u2019s ecosystem',
-        thumbnail: 'images/google/thumbnail.png',
-        hero: 'images/google/hero.png',
+        thumbnails: [
+            'images/google/thumb-1.png',
+            'images/google/thumb-2.png',
+            'images/google/thumb-3.png',
+            'images/google/thumb-4.png'
+        ],
+        carousel: [
+            'images/google/carousel-1.png',
+            'images/google/carousel-2.png',
+            'images/google/carousel-3.png',
+            'images/google/carousel-4.png'
+        ],
         images: [],
         overview: 'For over three years, I led a global team of 10 UX designers creating experiences for Google\u2019s AI-powered products \u2014 from TensorFlow and Google Cloud AI services to emerging ML features across Ads and YouTube.',
         challenge: 'Google\u2019s AI product portfolio was expanding rapidly across multiple product lines, but design operations hadn\u2019t kept pace. With designers spanning 4 time zones and products touching millions of users, we needed consistent design quality and streamlined processes without slowing innovation.',
@@ -508,8 +616,18 @@ const cases = [
     {
         meta: 'AI & Autonomous Vehicles · Zoox — 2025',
         title: 'Taking Zoox from R&D lab to rider-ready service',
-        thumbnail: 'images/zoox/thumbnail.png',
-        hero: 'images/zoox/hero.png',
+        thumbnails: [
+            'images/zoox/thumb-1.png',
+            'images/zoox/thumb-2.png',
+            'images/zoox/thumb-3.png',
+            'images/zoox/thumb-4.png'
+        ],
+        carousel: [
+            'images/zoox/carousel-1.png',
+            'images/zoox/carousel-2.png',
+            'images/zoox/carousel-3.png',
+            'images/zoox/carousel-4.png'
+        ],
         images: [],
         overview: 'Led strategy, content, and interaction design for the Zoox.com redesign as the company prepared to shift from a research-focused identity to a customer-facing autonomous vehicle service.',
         challenge: 'Zoox was transitioning from an R&D company to a public-facing service — but its digital presence still spoke the language of engineers, not riders. The redesign needed to make AI-powered transportation feel approachable and trustworthy to everyday people.',
@@ -523,8 +641,18 @@ const cases = [
     {
         meta: 'B2B Marketplace · Adidas — 2017–2019',
         title: 'Building a new marketplace for the adidas retail ecosystem',
-        thumbnail: 'images/adidas/thumbnail.png',
-        hero: 'images/adidas/hero.png',
+        thumbnails: [
+            'images/adidas/thumb-1.png',
+            'images/adidas/thumb-2.png',
+            'images/adidas/thumb-3.png',
+            'images/adidas/thumb-4.png'
+        ],
+        carousel: [
+            'images/adidas/carousel-1.png',
+            'images/adidas/carousel-2.png',
+            'images/adidas/carousel-3.png',
+            'images/adidas/carousel-4.png'
+        ],
         images: [],
         overview: 'Embedded with adidas in Portland for two years to design Locker Room — a new B2B marketplace where sports retailers and teams could buy and sell adidas outfits.',
         challenge: 'Adidas needed a completely new marketplace platform for their B2B retail ecosystem. Sports retailers and team buyers had vastly different needs, tech sophistication levels, and purchasing workflows — yet they needed to coexist in a single, intuitive platform.',
@@ -547,7 +675,23 @@ const bg       = document.getElementById('overlayBg');
 function openCase(i) {
     const c = cases[i];
 
-    const heroImg = c.hero ? `<img src="${c.hero}" alt="${c.title}" class="ov-hero-img">` : '';
+    const carousel = c.carousel && c.carousel.length > 0 ? `
+        <div class="ov-carousel">
+            <div class="ov-carousel-track" id="carouselTrack">
+                ${c.carousel.map((img, idx) => `
+                    <div class="ov-carousel-slide">
+                        <img src="${img}" alt="${c.title} - Image ${idx + 1}">
+                    </div>
+                `).join('')}
+            </div>
+            <div class="ov-carousel-nav">
+                ${c.carousel.map((_, idx) => `
+                    <button class="ov-carousel-dot ${idx === 0 ? 'active' : ''}" data-slide="${idx}" aria-label="Go to slide ${idx + 1}"></button>
+                `).join('')}
+            </div>
+        </div>
+    ` : '';
+
     const additionalImages = c.images && c.images.length > 0
         ? `<div class="ov-images">${c.images.map(img => `<img src="${img}" alt="Project screenshot">`).join('')}</div>`
         : '';
@@ -556,7 +700,7 @@ function openCase(i) {
         <p class="label ov-meta">${c.meta}</p>
         <h2 class="ov-title">${c.title}</h2>
 
-        ${heroImg}
+        ${carousel}
 
         <div class="ov-section">
             <h3>Overview</h3>
@@ -584,6 +728,26 @@ function openCase(i) {
             </ul>
         </div>
     `;
+
+    // Initialize carousel
+    if (c.carousel && c.carousel.length > 0) {
+        let currentSlide = 0;
+        const track = document.getElementById('carouselTrack');
+        const dots = content.querySelectorAll('.ov-carousel-dot');
+
+        const goToSlide = (index) => {
+            currentSlide = index;
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === currentSlide);
+            });
+        };
+
+        dots.forEach((dot, idx) => {
+            dot.addEventListener('click', () => goToSlide(idx));
+        });
+    }
+
     panel.scrollTop = 0;
     overlay.classList.add('open');
     overlay.setAttribute('aria-hidden', 'false');
@@ -620,14 +784,21 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 /* ── Add thumbnails to work items ── */
 document.querySelectorAll('.work-item').forEach((item, index) => {
-    if (cases[index] && cases[index].thumbnail) {
+    if (cases[index] && cases[index].thumbnails && cases[index].thumbnails.length > 0) {
         const desc = item.querySelector('.work-desc');
         if (desc) {
-            const img = document.createElement('img');
-            img.src = cases[index].thumbnail;
-            img.alt = cases[index].title;
-            img.className = 'work-thumbnail';
-            desc.after(img);
+            const container = document.createElement('div');
+            container.className = 'work-thumbnails';
+
+            cases[index].thumbnails.forEach((thumbSrc, thumbIndex) => {
+                const img = document.createElement('img');
+                img.src = thumbSrc;
+                img.alt = `${cases[index].title} - Image ${thumbIndex + 1}`;
+                img.className = 'work-thumbnail';
+                container.appendChild(img);
+            });
+
+            desc.after(container);
         }
     }
 });
